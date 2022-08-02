@@ -31,6 +31,11 @@ class _PerguntaAppState extends State<PerguntaApp> {
         'respostas': ['Terror', 'Ação', 'Aventura', 'Comédia'],
       }
     ];
+    var resp_botoes = [];
+    for (var textoResp in perguntas[_perguntaSelecionada].cast()['respostas']) {
+      // print(textoResp);
+      resp_botoes.add(textoResp);
+    }
 
     return MaterialApp(
       home: Scaffold(
@@ -39,11 +44,11 @@ class _PerguntaAppState extends State<PerguntaApp> {
         ),
         body: Column(
           children: [
-            Questao(perguntas[_perguntaSelecionada]['teste'].toString()),
-            Resposta('Resposta 001', _responder),
-            Resposta('Resposta 002', _responder),
-            Resposta('Resposta 003', _responder),
-            Resposta('Resposta 004', _responder),
+            Questao(perguntas[_perguntaSelecionada]['texto'].toString()),
+            Resposta(resp_botoes[0].toString(), _responder),
+            Resposta(resp_botoes[1].toString(), _responder),
+            Resposta(resp_botoes[2].toString(), _responder),
+            Resposta(resp_botoes[3].toString(), _responder),
           ],
         ),
       ),
