@@ -8,11 +8,16 @@ main() => runApp(PerguntaApp());
 class _PerguntaAppState extends State<PerguntaApp> {
   var _perguntaSelecionada = 0;
 
-  void _responder() {
+  int _responder() {
     setState(() {
-      _perguntaSelecionada++;
+      if (_perguntaSelecionada < 2) {
+        _perguntaSelecionada++;
+      } else {
+        _perguntaSelecionada = 0;
+      }
     });
     print('Valor é $_perguntaSelecionada');
+    return _perguntaSelecionada;
   }
 
   @override
@@ -31,22 +36,26 @@ class _PerguntaAppState extends State<PerguntaApp> {
         'respostas': ['Terror', 'Ação', 'Aventura', 'Comédia'],
       }
     ];
-    List<Widget> resp_botoes = [];
+    List<String> respostas =
+        perguntas[_perguntaSelecionada].cast()['respostas'];
 
-    for (var textoResp in perguntas[_perguntaSelecionada].cast()['respostas']) {
-      // print(textoResp);
-      resp_botoes.add(Resposta(textoResp, _responder));
-    }
+    List<Widget> widgets =
+        respostas.map((t) => Resposta(t, _responder)).toList();
+
+    // for (var textoResp in respostas) {
+    //   // print(textoResp);
+    //   widgets.add(Resposta(textoResp, _responder));
+    // }
 
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('perguntas'),
+          title: Text('Perguntas'),
         ),
         body: Column(
           children: [
             Questao(perguntas[_perguntaSelecionada]['texto'].toString()),
-            ...resp_botoes,
+            ...widgets,
           ],
         ),
       ),
