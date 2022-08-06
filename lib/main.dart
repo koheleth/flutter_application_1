@@ -7,10 +7,11 @@ main() => runApp(PerguntaApp());
 
 class _PerguntaAppState extends State<PerguntaApp> {
   var _perguntaSelecionada = 0;
+  int qtdaPerguntas = 0;
 
   int _responder() {
     setState(() {
-      if (_perguntaSelecionada < 2) {
+      if (_perguntaSelecionada < qtdaPerguntas - 1) {
         _perguntaSelecionada++;
       } else {
         _perguntaSelecionada = 0;
@@ -34,18 +35,19 @@ class _PerguntaAppState extends State<PerguntaApp> {
       {
         'texto': 'Qual é o seu tipo de filme?',
         'respostas': ['Terror', 'Ação', 'Aventura', 'Comédia'],
+      },
+      {
+        'texto': 'Qual é o seu tipo de série?',
+        'respostas': ['Comédia', 'sitcom', 'mistério', 'policial'],
+      },
+      {
+        'texto': 'Qual é sua comida favorita?',
+        'respostas': ['Massas', 'sopas', 'doces', 'salgados'],
       }
     ];
     List<String> respostas =
         perguntas[_perguntaSelecionada].cast()['respostas'];
-
-    List<Widget> widgets =
-        respostas.map((t) => Resposta(t, _responder)).toList();
-
-    // for (var textoResp in respostas) {
-    //   // print(textoResp);
-    //   widgets.add(Resposta(textoResp, _responder));
-    // }
+    qtdaPerguntas = perguntas.length;
 
     return MaterialApp(
       home: Scaffold(
@@ -55,7 +57,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
         body: Column(
           children: [
             Questao(perguntas[_perguntaSelecionada]['texto'].toString()),
-            ...widgets,
+            ...respostas.map((t) => Resposta(t, _responder)).toList(),
           ],
         ),
       ),
