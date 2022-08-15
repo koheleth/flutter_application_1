@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/questao.dart';
 import 'package:flutter_application_1/resposta.dart';
+import 'package:flutter_application_1/resultado.dart';
 
 main() => runApp(PerguntaApp());
 
@@ -51,18 +51,18 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Perguntas'),
-        ),
-        body: temPerguntaSelecionada
-            ? Column(
-                children: <Widget>[
-                  Questao(_perguntas[_perguntaSelecionada]['texto'].toString()),
-                  ...respostas.map((t) => Resposta(t, _responder)).toList(),
-                ],
-              )
-            : null,
-      ),
+          appBar: AppBar(
+            title: Text('Perguntas'),
+          ),
+          body: temPerguntaSelecionada
+              ? Column(
+                  children: <Widget>[
+                    Questao(
+                        _perguntas[_perguntaSelecionada]['texto'].toString()),
+                    ...respostas.map((t) => Resposta(t, _responder)).toList(),
+                  ],
+                )
+              : Resultado('Parabéns por ter terminado')),
     );
   }
 }
